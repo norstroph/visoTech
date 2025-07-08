@@ -1,0 +1,99 @@
+.slick-prev, .slick-next {
+
+    z-index: 2;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+
+
+}
+
+.slick-next:before,
+.slick-prev:before {
+    content: "" !important;
+}
+
+.container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.container .slick-list {
+    overflow: visible !important;
+
+}
+
+.container .slick-slide {
+    transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+    transform: scale(0.6) rotateY(10deg);
+    opacity: 0.6;
+    margin: 0;
+    filter: blur(0px);
+
+}
+
+.container .slick-slide:hover{
+    transform: scale(0.8) rotateY(0deg);
+    opacity: 1;
+    filter: none;
+    z-index: 10;
+}
+
+
+
+.container .slick-slide > div {
+    /* petit espacement horizontal */
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    padding: 0 5px;
+    width: 250px; /* fixe une largeur cohérente */
+
+    flex-shrink: 0;
+
+
+}
+
+.content,
+.container,
+.container .slick-track {
+    max-height: 420px; /* ou + selon taille cartes */
+    height: 100%;
+}
+.container {
+    height: 100%;
+
+}
+
+.slick-prev, .slick-next {
+    z-index: 2;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+}
+
+.slick-prev {
+    left: 10px;
+}
+
+.slick-next {
+    right: 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    content: "" !important;
+}
+
+.container .slick-track {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+
+}
+
+

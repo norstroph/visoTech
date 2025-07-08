@@ -1,15 +1,16 @@
-import {startTransition, useEffect, useState, useTransition} from 'react';
+import { useEffect, useState, useTransition} from 'react';
 import {useParams} from 'react-router';
 import {get} from '../../api/api.tsx';
 import {
     Box,
-    Container,
+
     Typography,
-    Grid,
+
     Chip,
     CircularProgress,
-    Rating,
-    Button
+
+    Button, Stack,
+    Rating
 } from '@mui/material';
 import type {Movie} from "../../@types/movieItem";
 
@@ -42,60 +43,69 @@ const MovieDetails = () => {
     }
 
     return (
-        <Container maxWidth="lg" sx={{py: 4}}>
-            <Grid container spacing={4}>
-                {/* Image */}
-                <Grid item xs={12} md={4}>
-                    <Box
-                        component="img"
-                        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-                        alt={movie.title}
-                        sx={{
-                            width: '100%',
+        <Box sx={{
+            display: 'flex',
+            flexDirection: {xs: 'column', md: 'row'},
+            gap: 4,
+            padding: 4,
+            color: 'white',
+        }}>
 
-                            borderRadius: 2,
-                            boxShadow: 3
-                        }}
-                    />
-                </Grid>
+            <Box
+                component="img"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                sx={{
+                    width: {xs: '100%', md: 300},
+                    borderRadius: 2,
+                    boxShadow: 4
+                }}
+            />
 
-                {/* Infos */}
-                <Grid item xs={12} md={8}>
-                    <Typography variant="h4" gutterBottom>{movie.title}</Typography>
-                    <Rating
-                        name="read-only"
-                        value={movie.vote_average / 2}
-                        precision={0.5}
-                        readOnly
-                        sx={{mb: 2}}
-                    />
-                    <Typography variant="body1" paragraph>{movie.overview}</Typography>
 
-                    <Box sx={{mb: 2}}>
-                        {movie.genres?.map((genre) => (
-                            <Chip
-                                key={genre.id}
-                                label={genre.name}
-                                color="secondary"
-                                variant="outlined"
-                                sx={{mr: 1, mb: 1}}
-                            />
-                        ))}
-                    </Box>
+            <Box sx={{flex: 1}}>
+                <Typography variant="h4" gutterBottom>{movie.title}</Typography>
+                <Typography variant="subtitle1" gutterBottom sx={{opacity: 0.7}}>
+                    {movie.tagline}
+                </Typography>
 
-                    <Typography variant="subtitle1">Date de sortie : {movie.release_date}</Typography>
-                    <Typography variant="subtitle1">Durée : {movie.runtime} min</Typography>
-                    <Typography variant="subtitle1">Langue originale
-                        : {movie.original_language.toUpperCase()}</Typography>
 
-                    <Box mt={3}>
-                        <Button variant="contained" color="primary">
-                            Ajouter aux favoris
-                        </Button>
-                    </Box>
-                </Grid>
-            </Grid>
-        </Container>
+                <Stack direction="row" spacing={1} sx={{my: 2, flexWrap: 'wrap'}}>
+                    {movie.genres.map((genre) => (
+                        <Chip key={genre.id} label={genre.name} color="primary"/>
+                    ))}
+                </Stack>
+
+
+                <Typography variant="body1" gutterBottom>
+                    <strong>Durée :</strong> {movie.runtime} min
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    <strong>Date de sortie :</strong> {movie.release_date}
+                </Typography>
+                <Rating
+                    name="read-only"
+                    value={movie.vote_average / 2}
+                    precision={0.5}
+                    readOnly
+                    sx={{mb: 2}}
+                />
+
+
+                <Typography variant="body2" sx={{mt: 3, lineHeight: 1.8}}>
+                    {movie.overview}
+                </Typography>
+
+                <Button
+                    variant="contained"
+                    sx={{mt: 4, bgcolor: 'red'}}
+                    href={`https://www.themoviedb.org/movie/${movie.id}`}
+                    target="_blank"
+                >
+                    Voir sur TMDB
+                </Button>
+            </Box>
+        </Box>
     );
 };
 
